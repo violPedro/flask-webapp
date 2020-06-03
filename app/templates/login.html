@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+            <div id="alerta" class="alert alert-warning alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{msg}}</strong> 
+              </div>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+              </script>
+              <script type="text/javascript">
+                  $(document).ready(function() {
+                      $('#alerta').show('fade');
+
+                      setTimeout(function() {
+                          $('#alerta').hide('fade');
+                      }, 3000);
+                      
+                  });
+              </script>
+              <script src="bootstrap/js/bootstrap.min.js"></script>
+          
+            {% endfor %}
+        {% endif %} 
+    {% endwith %}   
+    
+    <head>
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    </head>
+    <style>
+
+      .form-style{
+        margin: 20px;
+        width: 50%;
+      }
+
+      .button-style{
+        margin: 20px;
+      }
+      
+      .icon-size{
+        width: 17px;
+      }
+
+    </style>
+
+  <form class="." action="{{ url_for('login') }}" method="POST">
+   <div class="input-group mb-3 form-style">
+      <div class="input-group-prepend">
+        <label for=""></label>
+        <span class="input-group-text" id="user_input"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" name="USER" id="" placeholder="username">
+      </div>
+   </div>
+
+    <div class="input-group mb-3 form-style">
+      <div class="input-group-prepend">
+        <label for=""></label>
+        <span class="input-group-text" id="pass_input"><i class="fa fa-lock icon-size" aria-hidden="true"></i></span>
+        <input type="password" class="form-control" name="PASS" id="" placeholder="password">
+      </div>
+    </div>
+    <input class="button-style" type="submit" value="Entrar">
+  </form>
+
+  <!--
+        <form class="." action="#" method="post">
+            <label for="fuser">User:</label>
+            <input type="text" id="fname" name="USER"><br><br>
+            <label for="lpass">Password:</label>
+            <input type="password" id="lname" name="PASS"><br><br>
+            <input type="submit" value="Submit">
+          </form> --> 
+ {% endblock %}
+<!--
+<form action="#" method="post">
+    <label for="Parametro 1">Parametro X:</label>
+    <input type="text" id="par1" name="param1"><br><br>
+    <label for="Parametro 2">Parametro Y:</label>
+    <input type="text" id="par2" name="param2"><br><br>
+    <label for="Parametro 2">Parametro Z:</label>
+    <input type="text" id="par3" name="param3"><br><br>
+    <input type="submit" value="Simular">
+  </form> -->
+  

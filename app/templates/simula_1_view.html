@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div id="alerta" class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>{{msg}}</strong> 
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#alerta').show('fade');
+
+                            setTimeout(function() {
+                                $('#alerta').hide('fade');
+                            }, 3000)
+                            
+                        });
+                    </script>
+                    <script src="bootstrap/js/bootstrap.min.js"></script>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %}
+        
+    <style>
+        .style-sim{
+            display: inline-block;
+            position: fixed;
+            top: -200;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width:30%;
+            height: 30%;
+            margin: auto;
+            padding: 10px;
+            border: 2px solid blueviolet;
+            border-radius: 5px;
+            background-color: rgb(159, 89, 224);
+           
+            
+        }
+
+    </style>    
+    
+    <div class="style-sim"> 
+        <form action="/teste_sim" method="POST">
+        <!--<span class="input-group-text" id="user_input"><i class="fa fa-user-circle" aria-hidden="true"></i></span>-->
+          
+            <div class="form-group">
+                <p><input type="text" class="form-control" name="Desig" id="" placeholder="Origem:" required="1"></p>
+                <!--<input type="text" class="form-control" name="type" id="" placeholder="Tipo: Africana, por exemplo..." required="1">-->
+                <p><input type="number" class="form-control" name="tx_reproducao" id="" placeholder="Taxa de repdrodução: 0,1 por exemplo..." required="1"></p>
+                <p><input type="number" class="form-control" name="tx_mort" id="" placeholder="Taxa de mortalidade: 0,1 por exemplo..." required="1"></p>
+                <p><input type="number" class="form-control" name="nr_ite" id="" placeholder="Número de iterações: 100 por exemplo..." required="1"></p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Simular</button>
+            </div>
+           
+        </form>
+    </div> 
+    <!--
+    <script>
+        function GO(){
+            $.ajax({
+              url: "script.py",
+             context: document.body
+            }).done(function() {
+             alert('finished python script');;
+            });
+        }
+    -->
+    </script>
+    {% endblock %}
+     

@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+    {% block content %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div id="alerta" class="alert alert-warning alert-dismissible fade show" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <strong>{{msg}}</strong> 
+                    </div>
+                    <script type="text/javascript">
+                        $(document).ready(function() {
+                            $('#alerta').show('fade');
+
+                            setTimeout(function() {
+                                $('#alerta').hide('fade');
+                            }, 3000)
+                            
+                        });
+                    </script>
+                    <script src="bootstrap/js/bootstrap.min.js"></script>
+                {% endfor %}
+            {% endif %} 
+        {% endwith %}
+    <style>
+        .bs-example{
+            margin: 20px; 
+            width: 500px;  
+            text-align: center;     
+        }
+        .user-tag{
+            margin-left: 20px;
+            color:blueviolet;
+        }
+        .to_top_corner{
+            float: right;
+     
+        }
+        .dropbtn {
+            background-color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+          
+        }
+
+        .dropdown-content {
+            display: none;
+            position: relative;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {background-color: #f0bdbd}
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #8d8484;
+        }
+
+        /*----------------PARA VALIDAÇÃO DE DADOS-------------------------*/
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        /* Style the submit button */
+        input[type=submit] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Style the container for inputs */
+        .container {
+            background-color: #f1f1f1;
+            
+        }
+
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+            display:none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #message h3 {
+            margin-left: -25px;
+            padding: 5px 20px;
+            font-size: 20px;
+        }
+
+        #message p {
+            padding: 5px 20px;
+            font-size: 18px;
+        }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+        .valid:before {
+            position: relative;
+            left: -25px;
+            content: "✔";
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+        .invalid:before {
+            position: relative;
+            left: -25px;
+            content: "✖";
+        }
+    </style>    
+    <div class="..">
+        <p class="user-tag">Bem-vindo {{userino}} </p>
+    </div>   
+    <div class="bs-example">    
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action active">Menu</a>
+            <a href="/simulation" class="list-group-item list-group-item-action">
+            Simulação <span class="badge badge-pill badge-primary pull-right"></span>
+            </a>
+            <a href="/lista_sims" class="list-group-item list-group-item-action">
+            Lista Simulações <span class="badge badge-pill badge-primary pull-right"></span>
+            </a>
+            <div class="dropdown">
+                <button class="dropbtn"> Definições<span class="badge badge-pill badge-primary pull-right"></span></button>
+                    <div class="dropdown-content">
+                        <a href="#" data-toggle="modal" data-target="#mymodal">Editar Username</a>
+                        <a href="#" data-toggle="modal" data-target="#mymodal_2">Alterar Palavra-Passe</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!--INICIO MODAL PARA ALTERAR USERNAME -->
+    <div id="mymodal" class="modal fade" role="dialog">
+        
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h4 class="modal-title">Editar Username</h4></div>
+                <div class="modal-body">
+                <form action="{{url_for('change_username')}}" method="POST">
+                <!--<span class="input-group-text" id="user_input"><i class="fa fa-user-circle" aria-hidden="true"></i></span>-->
+                        <div class="form-group">
+                        
+                        <input type="text" class="form-control" name="USER" id="USER" placeholder="username" required="1">
+                    
+                    </div>
+                    <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Editar</button>
+                    </div>
+                </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+            </div>
+        
+    </div>
+    <!--INICIO MODAL PARA ALTERAR PASSWORD -->
+        
+        <div id="mymodal_2" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"><h4 class="modal-title">Alterar Palavra-Passe</h4></div>
+                        <div class="modal-body">
+                            <form action="{{url_for('change_pass')}}" method="POST">
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="PASS" id="PASS" placeholder="Palavra-Passe" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Deve conter pelo menos um número, uma letra minúscula, uma letra maiúscula, e pelo menos 8 caracteres" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit">Alterar</button>
+                                </div>
+                               
+
+                            </form>
+                        </div>    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                        </div> 
+                        <div class="container">
+                            <div id="message">
+                                <h3>A Palavra-Passe deve conter o seguinte:</h3>
+                                <p id="letter" class="invalid">Uma <b>Letra</b> minúscula</p>
+                                <p id="capital" class="invalid">Uma <b>Letra</b> MAIÚSCULA</p>
+                                <p id="number" class="invalid">Um <b>Número</b></p>
+                                <p id="length" class="invalid">No minímo <b>8 caracteres</b></p>
+                            </div>
+                        </div> 
+                </div>
+            </div>
+           
+        </div>
+      
+    
+
+    <script>
+    var myInput = document.getElementById("PASS");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+        
+        // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+        
+        // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+        
+        // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+          // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {  
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+          
+          // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {  
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+        
+          // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {  
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+          
+          // Validate length
+        if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
+    </script>   
+    {% endblock %}
